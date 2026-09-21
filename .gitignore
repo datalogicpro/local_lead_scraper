@@ -1,0 +1,6 @@
+.env
+leads.db
+__pycache__/
+.venv/
+make_preview.py
+preview/
