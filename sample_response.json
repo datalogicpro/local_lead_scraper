@@ -1,0 +1,50 @@
+{
+  "places": [
+    {
+      "id": "SAMPLE_PLACE_001",
+      "displayName": {"text": "Coastal Pro Plumbing", "languageCode": "en"},
+      "formattedAddress": "101 Example St, Fort Lauderdale, FL 33301, USA",
+      "nationalPhoneNumber": "(954) 555-0101",
+      "websiteUri": "https://www.coastalproplumbing.example.com/?utm_source=google"
+    },
+    {
+      "id": "SAMPLE_PLACE_002",
+      "displayName": {"text": "  Harbor  Drain Experts ", "languageCode": "en"},
+      "formattedAddress": "202 Sample Ave, Fort Lauderdale, FL 33301, USA",
+      "nationalPhoneNumber": "954.555.0102",
+      "websiteUri": "HTTP://HarborDrainExperts.example.com/"
+    },
+    {
+      "id": "SAMPLE_PLACE_003",
+      "displayName": {"text": "Bayside Plumbing & Rooter", "languageCode": "en"},
+      "formattedAddress": "303 Demo Blvd, Fort Lauderdale, FL 33301, USA",
+      "nationalPhoneNumber": "954 555 0103"
+    },
+    {
+      "id": "SAMPLE_PLACE_004",
+      "displayName": {"text": "Sunshine Water Heaters", "languageCode": "en"},
+      "formattedAddress": "404 Test Rd, Fort Lauderdale, FL 33301, USA",
+      "websiteUri": "https://sunshinewaterheaters.example.com"
+    },
+    {
+      "id": "SAMPLE_PLACE_005",
+      "displayName": {"text": "A1 Leak Detection", "languageCode": "en"},
+      "formattedAddress": "505 Mock Way, Fort Lauderdale, FL 33301, USA",
+      "nationalPhoneNumber": "+1 954-555-0105",
+      "websiteUri": "https://a1leakdetection.example.com/contact/"
+    },
+    {
+      "id": "SAMPLE_PLACE_002",
+      "displayName": {"text": "Harbor Drain Experts", "languageCode": "en"},
+      "formattedAddress": "202 Sample Ave, Fort Lauderdale, FL 33301, USA",
+      "nationalPhoneNumber": "(954) 555-0102",
+      "websiteUri": "https://harbordrainexperts.example.com/"
+    },
+    {
+      "id": "SAMPLE_PLACE_006",
+      "displayName": {"text": "Palm Road Plumbing Co.", "languageCode": "en"},
+      "formattedAddress": "606 Placeholder Ln, Fort Lauderdale, FL 33301, USA",
+      "nationalPhoneNumber": "5165550106"
+    }
+  ]
+}
