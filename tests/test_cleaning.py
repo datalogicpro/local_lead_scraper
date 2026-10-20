@@ -68,3 +68,35 @@ def test_parse_place_without_id_is_rejected() -> None:
 def test_parse_place_without_name_is_rejected() -> None:
     with pytest.raises(ValueError, match="P1 has no name"):
         parse_place({"id": "P1"})
+
+
+def test_parse_place_treats_values_that_are_not_text_as_missing() -> None:
+    place = {
+        "id": "P1",
+        "displayName": {"text": "Good Plumbing"},
+        "formattedAddress": 101,
+        "nationalPhoneNumber": ["954", "555", "0101"],
+        "websiteUri": None,
+    }
+    assert parse_place(place) == {
+        "place_id": "P1",
+        "name": "Good Plumbing",
+        "address": None,
+        "phone": None,
+        "website": None,
+    }
+
+
+@pytest.mark.parametrize(
+    "place",
+    [
+        {"id": 1, "displayName": {"text": "Number Id Plumbing"}},
+        {"id": "P1", "displayName": "Not A Dict Plumbing"},
+        {"id": "P1", "displayName": {"text": 42}},
+    ],
+)
+def test_parse_place_rejects_ids_and_names_that_are_not_text(
+    place: dict[str, object],
+) -> None:
+    with pytest.raises(ValueError):
+        parse_place(place)

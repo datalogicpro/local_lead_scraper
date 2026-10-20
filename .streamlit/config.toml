@@ -1,0 +1,7 @@
+[server]
+# The page only needs small .json files, so uploads are limited to 1 MB
+maxUploadSize = 1
+
+[theme]
+# The same dark blue as the other portfolio pages
+primaryColor = "#1F4E78"
