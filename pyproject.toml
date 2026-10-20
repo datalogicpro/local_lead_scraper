@@ -1,6 +1,6 @@
 [project]
 name = "local-lead-scraper"
-version = "0.1.0"
+version = "1.0.0"
 description = "Collects local business leads from the Google Places API, cleans them, and saves them to a SQL database."
 readme = "README.md"
 requires-python = ">=3.13"

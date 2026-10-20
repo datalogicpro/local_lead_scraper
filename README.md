@@ -1,5 +1,9 @@
 # Local Lead Scraper
 
+[![Tests](https://github.com/datalogicpro/local_lead_scraper/actions/workflows/tests.yml/badge.svg)](https://github.com/datalogicpro/local_lead_scraper/actions/workflows/tests.yml)
+
+**Live demo:** [datalogicpro-lead-scraper.streamlit.app](https://datalogicpro-lead-scraper.streamlit.app)
+
 A Python tool that collects local business leads from the Google Places API, cleans the data, and saves it into a SQL database. It is safe to run on a schedule: businesses it has already seen are updated, never duplicated.
 
 ## The problem
@@ -17,7 +21,7 @@ Lead lists go stale and get messy. The same business shows up in every run, phon
 - **Saves** to a SQLite database with upsert logic (`ON CONFLICT ... DO UPDATE`). A repeat run updates existing leads, and a blank value in new data never erases a value already saved.
 - **Skips bad records** and logs a clear warning, so one bad place never stops the whole run.
 - **Protects your API budget** with a hard daily limit on real Google calls, counted before each call.
-- **Tested** with 17 automated tests.
+- **Tested** with 52 automated tests that cover every line of code.
 
 ## Cleaning example
 
@@ -65,24 +69,36 @@ A live search for "plumbers in Fort Lauderdale, FL" returned 19 businesses using
 
 ![Leads from a live Google Places search](images/leads.png)
 
+## Web page
+
+The live demo runs the same cleaning and saving steps in the browser, without calling Google:
+
+- Try the made-up sample data, or upload your own file in the same format as Google's reply
+- See the inserted, updated, and skipped counts
+- Click **Run it again** to watch repeat runs update leads instead of duplicating them
+- Compare the data before and after cleaning
+- Download the saved leads as a CSV file
+
 ## How to run
 
-1. Install the libraries:
+1. Install [uv](https://docs.astral.sh/uv/getting-started/installation/).
+
+2. Install the libraries:
 
 ```
-   pip install -r requirements.txt
+   uv sync
 ```
 
-2. Run it on the included sample data. This makes no real Google calls:
+3. Run it on the included sample data. This makes no real Google calls:
 
 ```
-   python scraper.py
+   uv run python scraper.py
 ```
 
-3. Run the tests:
+4. Or start the web page:
 
 ```
-   python -m pytest
+   uv run streamlit run app.py
 ```
 
 ### Using real data
@@ -98,7 +114,7 @@ A live search for "plumbers in Fort Lauderdale, FL" returned 19 businesses using
 2. Run a live search:
 
 ```
-   python scraper.py --live "plumbers in Fort Lauderdale, FL"
+   uv run python scraper.py --live "plumbers in Fort Lauderdale, FL"
 ```
 
 Each live run makes one Google call. The script refuses to make more than 10 real calls in a day to keep costs down.
@@ -110,15 +126,49 @@ Each live run makes one Google call. The script refuses to make more than 10 rea
 | `scraper.py` | Main program: fetch, clean, save, and the daily call limit |
 | `cleaning.py` | Functions that clean names, phones, and websites |
 | `database.py` | Creates the table and handles the upsert |
-| `test_leads.py` | Automated tests |
+| `app.py` | The web page |
+| `tests/` | Automated tests |
 | `sample_response.json` | Made-up sample of Google's reply, for testing at no cost |
-| `requirements.txt` | Libraries the project needs |
+| `pyproject.toml`, `uv.lock` | Libraries the project needs, with exact versions |
+
+## Development
+
+Run the tests, which require 100% coverage:
+
+```
+uv run pytest
+```
+
+Run the code checks:
+
+```
+uv run ruff check .
+uv run ruff format --check .
+uv run mypy .
+uv run pip-audit
+```
+
+Turn on the checks that run before each commit:
+
+```
+uv run pre-commit install
+```
+
+GitHub Actions runs the checks and tests on every pull request, and Dependabot keeps the dependencies up to date.
 
 ## Built with
 
-Python, SQLite, requests, python-dotenv, and pytest.
+Python, SQLite, requests, python-dotenv, Streamlit, and uv.
 
 ## Planned next
 
 - Move the database from SQLite to PostgreSQL
 - Package the project with Docker
+
+## License
+
+MIT. See [LICENSE](LICENSE).
+
+## Author
+
+datalogicpro
