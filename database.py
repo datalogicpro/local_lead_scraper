@@ -1,18 +1,21 @@
 """Database functions for the lead scraper (SQLite)."""
 
 import sqlite3
+from typing import Literal
+
+from cleaning import Lead
 
 DB_FILE = "leads.db"
 
 
-def connect(db_file=DB_FILE):
+def connect(db_file: str = DB_FILE) -> sqlite3.Connection:
     """Open the database file, creating it if it does not exist."""
     conn = sqlite3.connect(db_file)
     conn.row_factory = sqlite3.Row
     return conn
 
 
-def create_table(conn):
+def create_table(conn: sqlite3.Connection) -> None:
     """Create the leads table if it is not there yet."""
     conn.execute(
         """
@@ -30,7 +33,7 @@ def create_table(conn):
     conn.commit()
 
 
-def upsert_lead(conn, lead):
+def upsert_lead(conn: sqlite3.Connection, lead: Lead) -> Literal["inserted", "updated"]:
     """Insert a lead, or update it if its place_id is already in the table.
 
     A blank value in the new data never erases a value we already have.

@@ -2,5 +2,9 @@
 leads.db
 __pycache__/
 .venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
 make_preview.py
 preview/
