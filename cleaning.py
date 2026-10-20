@@ -5,17 +5,28 @@ or None when the value is missing or unusable.
 """
 
 import re
+from typing import Any, TypedDict
 from urllib.parse import urlsplit, urlunsplit
 
 
-def clean_name(name):
+class Lead(TypedDict):
+    """One clean business lead, ready to save."""
+
+    place_id: str
+    name: str
+    address: str | None
+    phone: str | None
+    website: str | None
+
+
+def clean_name(name: str | None) -> str | None:
     """Trim extra spaces: '  Harbor  Drain Experts ' -> 'Harbor Drain Experts'."""
     if not name:
         return None
     return " ".join(name.split()) or None
 
 
-def clean_phone(phone):
+def clean_phone(phone: str | None) -> str | None:
     """Standardize a US phone number to (954) 555-0101.
 
     Returns None if it is blank or is not a 10-digit number.
@@ -30,7 +41,7 @@ def clean_phone(phone):
     return f"({digits[:3]}) {digits[3:6]}-{digits[6:]}"
 
 
-def clean_website(url):
+def clean_website(url: str | None) -> str | None:
     """Standardize a website address.
 
     'HTTP://Site.com/?utm_source=google' -> 'http://site.com'
@@ -45,7 +56,7 @@ def clean_website(url):
     return urlunsplit((parts.scheme.lower(), parts.netloc.lower(), path, "", ""))
 
 
-def parse_place(place):
+def parse_place(place: dict[str, Any]) -> Lead:
     """Turn one place from Google's reply into a flat, clean record.
 
     Raises ValueError when the place has no id or no name, so the caller
